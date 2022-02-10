@@ -7,11 +7,13 @@ public abstract class Product {
     private String nameOfProduct;
     private double price;
     private int quantityInStock = MAX_QUANTITY;
+    private String dispenseMessage;
 
-    public Product(String slotIdentifier, String nameOfProduct, double price) {
+    public Product(String slotIdentifier, String nameOfProduct, double price, String dispenseMessage) {
         this.slotIdentifier = slotIdentifier;
         this.nameOfProduct = nameOfProduct;
         this.price = price;
+        this.dispenseMessage = dispenseMessage;
     }
 
     public String getSlotIdentifier() {
@@ -34,4 +36,7 @@ public abstract class Product {
         return quantityInStock < 1;
     }
 
+    public String getDispenseMessage() {
+        return dispenseMessage;
+    }
 }

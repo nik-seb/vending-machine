@@ -49,13 +49,13 @@ public class UI {
                         // UPDATE BALANCE
                         Product product = vendingMachine.getProductList().get(productID);
                         System.out.println("You have purchased " + product.getNameOfProduct() + " for $" + product.getPrice() + " and have $" + "BALANCE HERE" + " remaining.");
-                        // MIGHT NEED TO HAVE PRODUCT SUPERCLASS CONTAIN DISPENSEMESSAGE TO ACCESS HERE
+                        System.out.println(product.getDispenseMessage());
                         // does not change purchaseInProgress boolean; returns to purchase menu
                     } else {
                         System.out.println("Sorry, that's not a valid slot ID.");
                     }
                 } else if (purchaseResponse == 3) {
-                    // FINISH TRANSACTION
+                    vendingMachine.returnChange();
                     purchaseInProgress = false;
                 } else {
                     System.out.println("Please enter a valid option number.");

@@ -2,13 +2,8 @@ package com.techelevator;
 
 public class Chips extends Product {
 
-    private String dispenseMessage = "Crunch Crunch, Yum!";
-
     public Chips(String slotIdentifier, String nameOfProduct, double price) {
-        super(slotIdentifier, nameOfProduct, price);
+        super(slotIdentifier, nameOfProduct, price, "Crunch Crunch, Yum!");
     }
 
-    public String getDispenseMessage() {
-        return dispenseMessage;
-    }
 }

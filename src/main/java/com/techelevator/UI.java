@@ -73,10 +73,13 @@ public class UI {
     }
 
     private void displayProducts () {
-        // NEEDS ADDITIONAL LOGIC: A product that has run out must indicate that it is SOLD OUT
         for (Map.Entry<String, Product> kv : vendingMachine.getProductList().entrySet()) {
             Product thisProduct = kv.getValue();
-            System.out.println(thisProduct.getSlotIdentifier() + " " + thisProduct.getNameOfProduct() + " " + thisProduct.getPrice());
+            String infoString = thisProduct.getSlotIdentifier() + " " + thisProduct.getNameOfProduct() + " " + thisProduct.getPrice();
+            if (thisProduct.isSoldOut()) {
+                infoString += " - SOLD OUT";
+            }
+            System.out.println(infoString);
         }
     }
 

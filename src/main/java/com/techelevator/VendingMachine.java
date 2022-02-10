@@ -74,7 +74,7 @@ public class VendingMachine {
             // PUT BELOW IN ELSE BLOCK ONCE BALANCE IS FUNCTIONING, SO IT ONLY EXECUTES IF ABOVE ARE FALSE
             // UPDATE BALANCE HERE
             product.removeProduct();
-            System.out.println("You have purchased " + product.getNameOfProduct() + " for $" + product.getPrice() + " and have $" + "BALANCE HERE" + " remaining.");
+            System.out.println("You have purchased " + product.getNameOfProduct() + " for $" + product.getPrice() + " and have $" + currentBalance + " remaining.");
             System.out.println(product.getDispenseMessage());
             // does not change purchaseInProgress boolean; returns to purchase menu
         } else {

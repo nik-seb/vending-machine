@@ -48,6 +48,7 @@ public class UI {
                         // ELSE
                         // UPDATE BALANCE
                         Product product = vendingMachine.getProductList().get(productID);
+                        product.dispenseProduct();
                         System.out.println("You have purchased " + product.getNameOfProduct() + " for $" + product.getPrice() + " and have $" + "BALANCE HERE" + " remaining.");
                         System.out.println(product.getDispenseMessage());
                         // does not change purchaseInProgress boolean; returns to purchase menu
@@ -70,6 +71,7 @@ public class UI {
 
     private void printPurchaseMenu () {
         System.out.println("(1) Feed Money\n" + "(2) Select Product\n" + "(3) Finish Transaction");
+        System.out.println("Current Money Provided: " + vendingMachine.getCurrentBalance());
     }
 
     private void displayProducts () {

@@ -16,6 +16,10 @@ public abstract class Product {
         this.dispenseMessage = dispenseMessage;
     }
 
+    public void dispenseProduct () {
+        quantityInStock--;
+    }
+
     public String getSlotIdentifier() {
         return slotIdentifier;
     }

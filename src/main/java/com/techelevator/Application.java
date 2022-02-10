@@ -8,5 +8,6 @@ public class Application {
 
 		VendingMachine vendingMachine = new VendingMachine();
 		UI ui = new UI(vendingMachine);
+		
 	}
 }

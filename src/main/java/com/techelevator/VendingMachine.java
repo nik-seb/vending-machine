@@ -7,6 +7,12 @@ import java.util.*;
 public class VendingMachine {
 
     private Map<String, Product> productList;
+    private double currentBalance;
+
+
+    public double getCurrentBalance() {
+        return currentBalance;
+    }
 
     public VendingMachine () {
         this.productList = stockMachine();
@@ -45,5 +51,15 @@ public class VendingMachine {
 
     public Map<String, Product> getProductList () {
         return productList;
+    }
+
+    public void returnChange() {
+
+        int numberQuarters = (int)Math.floor(currentBalance / 0.25);
+        int numberDimes = (int)Math.floor((currentBalance - (0.25 * numberQuarters)) / 0.10);
+        int numberNickels = (int)Math.floor((currentBalance - ((0.25 * numberQuarters) + (0.10 * numberDimes))) / 0.05);
+
+        System.out.println("Your change is: $" + currentBalance + ". You receive: " + numberQuarters + " quarter(s), " + numberDimes + " dime(s), and " + numberNickels + " nickel(s).");
+        currentBalance = 0;
     }
 }

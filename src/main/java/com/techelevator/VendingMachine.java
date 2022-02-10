@@ -2,37 +2,38 @@ package com.techelevator;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 
 public class VendingMachine {
 
-    private List<Product> productList;
+    private Map<String, Product> productList;
 
     public VendingMachine () {
         this.productList = stockMachine();
     }
 
-    public List<Product> stockMachine () {
-        List<Product> inventoryList = new ArrayList<>();
+    public Map<String, Product> stockMachine () {
+        Map<String, Product> inventoryList = new LinkedHashMap<>();
         File inventoryFile = new File ("vendingmachine.csv");
+        if (!inventoryFile.exists() || !inventoryFile.isFile() || !inventoryFile.canRead()) {
+            System.out.println("can't find it");
+        }
         try (Scanner scanner = new Scanner(inventoryFile)) {
             while (scanner.hasNextLine()) {
                 // lines are in format: A1|Potato Crisps|3.05|Chip
                 String currentLine = scanner.nextLine();
-                String[] lineArray = currentLine.split("//|");
+                String[] lineArray = currentLine.split("\\|");
                 String slotID = lineArray[0];
                 String name = lineArray[1];
                 double price = Double.parseDouble(lineArray[2]);
                 if (lineArray[3].equalsIgnoreCase("beverage")) {
-                    inventoryList.add(new Beverage(slotID, name, price));
+                    inventoryList.put(slotID, new Beverage(slotID, name, price));
                 } else if (lineArray[3].equalsIgnoreCase("candy")) {
-                    inventoryList.add(new Candy(slotID, name, price));
+                    inventoryList.put(slotID, new Candy(slotID, name, price));
                 } else if (lineArray[3].equalsIgnoreCase("chips")) {
-                    inventoryList.add(new Chips(slotID, name, price));
+                    inventoryList.put(slotID, new Chips(slotID, name, price));
                 } else if (lineArray[3].equalsIgnoreCase("gum")) {
-                    inventoryList.add(new Gum(slotID, name, price));
+                    inventoryList.put(slotID, new Gum(slotID, name, price));
                 }
             }
         } catch (FileNotFoundException e) {
@@ -42,7 +43,7 @@ public class VendingMachine {
         return inventoryList;
     }
 
-    public List<Product> getProductList () {
+    public Map<String, Product> getProductList () {
         return productList;
     }
 }

@@ -37,24 +37,18 @@ public class UI {
                 printPurchaseMenu();
                 int purchaseResponse = Integer.parseInt(inputScanner.nextLine());
                 if (purchaseResponse == 1) {
-                    // RUN FEED MONEY METHOD HERE
+                    System.out.println("Please enter a whole number of dollars:");
+                    try {
+                        int cash = Integer.parseInt(inputScanner.nextLine());
+                        // RUN FEED CASH METHOD TO UPDATE BALANCE
+                    } catch (NumberFormatException e) {
+                        System.out.println("Sorry, that's not a valid whole number. Transaction has failed.");
+                    }
                 } else if (purchaseResponse == 2) {
                     System.out.println("Please enter the slot ID of the product you want to purchase:");
                     displayProducts();
                     String productID = inputScanner.nextLine();
-                    if (vendingMachine.getProductList().containsKey(productID)) {
-                        // CHECK IF SOLD OUT - IF SO, ALERT AND RESUME LOOP
-                        // CHECK BALANCE AGAINST PRODUCT COST - IF INADEQUATE, ALERT AND RESUME LOOP
-                        // ELSE
-                        // UPDATE BALANCE
-                        Product product = vendingMachine.getProductList().get(productID);
-                        product.dispenseProduct();
-                        System.out.println("You have purchased " + product.getNameOfProduct() + " for $" + product.getPrice() + " and have $" + "BALANCE HERE" + " remaining.");
-                        System.out.println(product.getDispenseMessage());
-                        // does not change purchaseInProgress boolean; returns to purchase menu
-                    } else {
-                        System.out.println("Sorry, that's not a valid slot ID.");
-                    }
+                    vendingMachine.dispenseProduct(productID);
                 } else if (purchaseResponse == 3) {
                     vendingMachine.returnChange();
                     purchaseInProgress = false;

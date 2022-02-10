@@ -62,4 +62,25 @@ public class VendingMachine {
         System.out.println("Your change is: $" + currentBalance + ". You receive: " + numberQuarters + " quarter(s), " + numberDimes + " dime(s), and " + numberNickels + " nickel(s).");
         currentBalance = 0;
     }
+
+    public void dispenseProduct (String productID) {
+        if (productList.containsKey(productID)) {
+            Product product = productList.get(productID);
+            if (product.isSoldOut()) {
+                System.out.println("Sorry, that product is sold out.");
+            } else if (product.getPrice() > currentBalance) {
+                System.out.println("Sorry, you have not put in enough money to purchase that product.");
+            }
+            // PUT BELOW IN ELSE BLOCK ONCE BALANCE IS FUNCTIONING, SO IT ONLY EXECUTES IF ABOVE ARE FALSE
+            // UPDATE BALANCE HERE
+            product.removeProduct();
+            System.out.println("You have purchased " + product.getNameOfProduct() + " for $" + product.getPrice() + " and have $" + "BALANCE HERE" + " remaining.");
+            System.out.println(product.getDispenseMessage());
+            // does not change purchaseInProgress boolean; returns to purchase menu
+        } else {
+            System.out.println("Sorry, that's not a valid slot ID.");
+        }
+    }
+
+
 }

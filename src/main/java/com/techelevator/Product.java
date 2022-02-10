@@ -16,7 +16,7 @@ public abstract class Product {
         this.dispenseMessage = dispenseMessage;
     }
 
-    public void dispenseProduct () {
+    public void removeProduct () {
         quantityInStock--;
     }
 

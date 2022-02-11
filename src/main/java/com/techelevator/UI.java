@@ -41,7 +41,8 @@ public class UI {
                     System.out.println("Please enter a whole number of dollars:");
                     try {
                         int cash = Integer.parseInt(inputScanner.nextLine());
-                        // RUN FEED CASH METHOD TO UPDATE BALANCE
+                        vendingMachine.addMoney(cash);
+                        System.out.println("Your new balance is " + vendingMachine.getCurrentBalance());
                     } catch (NumberFormatException e) {
                         System.out.println("Sorry, that's not a valid whole number. Transaction has failed.");
                     }

@@ -4,6 +4,9 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.LinkedHashMap;
+import java.util.Map;
+
 public class VendingMachineTest {
     VendingMachine vendingMachine;
 
@@ -51,6 +54,17 @@ public class VendingMachineTest {
         Assert.assertEquals(expected, output);
     }
 
+    @Test
+    public void dispenseProduct_twice_returns_3_quantity_in_stock () {
 
+        Map<String, Product> productList = new LinkedHashMap<>();
+        productList.put("A1", new Chips("A1", "Potato Crisps", 3.05));
+        vendingMachine.addMoney(10);
+        vendingMachine.dispenseProduct("A1");
+        vendingMachine.dispenseProduct("A1");
+        int quantityRemaining = vendingMachine.getProductList().get("A1").getQuantityInStock();
+        Assert.assertEquals(3, quantityRemaining);
+
+    }
 
 }

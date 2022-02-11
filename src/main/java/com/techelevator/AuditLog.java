@@ -1,6 +1,7 @@
 package com.techelevator;
 
 import java.io.*;
+import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -12,7 +13,7 @@ public class AuditLog {
         String timeStamp = getTimeStamp();
         try(FileOutputStream outputStream = new FileOutputStream(auditFile, true);
             PrintWriter writer = new PrintWriter(outputStream)) {
-            writer.println(">" + timeStamp + " FEED MONEY: $" + cashInserted + " $" + updatedBalance);
+            writer.println(">" + timeStamp + " FEED MONEY: " + NumberFormat.getCurrencyInstance().format(cashInserted) + " " + NumberFormat.getCurrencyInstance().format(updatedBalance));
         } catch (IOException e) {
             System.out.println("File not found.");
         }
@@ -22,7 +23,7 @@ public class AuditLog {
         String timeStamp = getTimeStamp();
         try (FileOutputStream outputStream = new FileOutputStream(auditFile, true);
              PrintWriter writer = new PrintWriter(outputStream)) {
-            writer.println(">" + timeStamp + " " + product.getNameOfProduct() + " " + product.getSlotIdentifier() + " $" + (updatedBalance + product.getPrice()) + " $" + updatedBalance);
+            writer.println(">" + timeStamp + " " + product.getNameOfProduct() + " " + product.getSlotIdentifier() + " " + NumberFormat.getCurrencyInstance().format(updatedBalance + product.getPrice()) + " " + NumberFormat.getCurrencyInstance().format(updatedBalance));
         } catch (IOException e) {
             System.out.println("File not found.");
         }
@@ -32,7 +33,7 @@ public class AuditLog {
         String timeStamp = getTimeStamp();
         try (FileOutputStream outputStream = new FileOutputStream(auditFile, true);
              PrintWriter writer = new PrintWriter(outputStream)) {
-            writer.println(">" + timeStamp + " GIVE CHANGE: $" + startingBalance + " $0.00");
+            writer.println(">" + timeStamp + " GIVE CHANGE: " + NumberFormat.getCurrencyInstance().format(startingBalance) + " $0.00");
         } catch (IOException e) {
             System.out.println("File not found.");
         }

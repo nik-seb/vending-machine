@@ -87,7 +87,7 @@ public class VendingMachine {
             } else {
                 product.removeProduct();
                 subtractMoney(product.getPrice());
-                return "You have purchased " + product.getNameOfProduct() + " for $" + product.getPrice() + " and have " + NumberFormat.getCurrencyInstance().format(currentBalance) + " remaining. \n" + product.getDispenseMessage();
+                return "You have purchased " + product.getNameOfProduct() + " for " + NumberFormat.getCurrencyInstance().format(product.getPrice()) + " and have " + NumberFormat.getCurrencyInstance().format(currentBalance) + " remaining. \n" + product.getDispenseMessage();
                 // does not change purchaseInProgress boolean; returns to purchase menu
             }
         } else {

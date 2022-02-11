@@ -1,5 +1,6 @@
 package com.techelevator;
 
+import java.text.NumberFormat;
 import java.util.Map;
 import java.util.Scanner;
 
@@ -47,7 +48,7 @@ public class UI {
                         System.out.println("Transaction has failed.");
                     } else {
                         vendingMachine.addMoney(cash);
-                        System.out.println("Your new balance is " + vendingMachine.getCurrentBalance());
+                        System.out.println("Your new balance is " + NumberFormat.getCurrencyInstance().format(vendingMachine.getCurrentBalance()));
                         auditLog.feedMoneyLogEntry(cash, vendingMachine.getCurrentBalance());
                     }
                 } else if (purchaseResponse == 2) {
@@ -73,13 +74,14 @@ public class UI {
 
     private void printPurchaseMenu () {
         System.out.println("(1) Feed Money\n" + "(2) Select Product\n" + "(3) Finish Transaction");
-        System.out.println("Current Money Provided: " + vendingMachine.getCurrentBalance());
+        System.out.println("Current Money Provided: " + NumberFormat.getCurrencyInstance().format(vendingMachine.getCurrentBalance()));
+
     }
 
     private void displayProducts () {
         for (Map.Entry<String, Product> kv : vendingMachine.getProductList().entrySet()) {
             Product thisProduct = kv.getValue();
-            String infoString = thisProduct.getSlotIdentifier() + " " + thisProduct.getNameOfProduct() + " " + thisProduct.getPrice();
+            String infoString = thisProduct.getSlotIdentifier() + " " + thisProduct.getNameOfProduct() + " " + NumberFormat.getCurrencyInstance().format(thisProduct.getPrice());
             if (thisProduct.isSoldOut()) {
                 infoString += " - SOLD OUT";
             }

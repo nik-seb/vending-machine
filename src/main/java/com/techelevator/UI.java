@@ -16,7 +16,7 @@ public class UI {
         interaction();
     }
 
-    public void interaction () {
+    private void interaction () {
         while (true) {
             boolean validMainMenuResponse = false;
             while (!validMainMenuResponse) {

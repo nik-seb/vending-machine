@@ -6,6 +6,7 @@ import org.junit.Test;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
+import java.text.NumberFormat;
 
 public class VendingMachineTest {
     VendingMachine vendingMachine;
@@ -64,6 +65,31 @@ public class VendingMachineTest {
         vendingMachine.dispenseProduct("A1");
         int quantityRemaining = vendingMachine.getProductList().get("A1").getQuantityInStock();
         Assert.assertEquals(3, quantityRemaining);
+    public void dispenseProduct_decrements_balance () {
+        vendingMachine.addMoney(5);
+        vendingMachine.dispenseProduct("C2"); // cost is 1.50
+        Assert.assertEquals(3.50, vendingMachine.getCurrentBalance(), 0);
+    }
+
+    @Test
+    public void dispenseProduct_returns_correct_string_for_successful_purchase () {
+        vendingMachine.addMoney(5);
+        String dispenseMessage = vendingMachine.dispenseProduct("C1");
+        Assert.assertEquals("You have purchased Cola for $1.25 and have $3.75 remaining. \nGlug Glug, Yum!", dispenseMessage);
+    }
+
+    @Test
+    public void purchase_declined_if_funds_insufficient_to_purchase_product () {
+        vendingMachine.addMoney(1);
+        String dispenseMessage = vendingMachine.dispenseProduct("A1");
+        Assert.assertEquals("Sorry, you have not put in enough money to purchase that product.", dispenseMessage);
+    }
+
+    @Test
+    public void purchase_declined_if_no_cash_has_been_added () {
+        String dispenseMessage = vendingMachine.dispenseProduct("B2");
+        Assert.assertEquals("Sorry, you have not put in enough money to purchase that product.", dispenseMessage);
+    }
 
     }
 

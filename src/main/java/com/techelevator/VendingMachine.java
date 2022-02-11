@@ -31,7 +31,7 @@ public class VendingMachine {
         this.productList = stockMachine();
     }
 
-    public Map<String, Product> stockMachine () {
+    private Map<String, Product> stockMachine () {
         Map<String, Product> inventoryList = new LinkedHashMap<>();
         File inventoryFile = new File ("vendingmachine.csv");
         if (!inventoryFile.exists() || !inventoryFile.isFile() || !inventoryFile.canRead()) {

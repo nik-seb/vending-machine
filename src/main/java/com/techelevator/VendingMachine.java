@@ -44,11 +44,11 @@ public class VendingMachine {
                 String slotID = lineArray[0];
                 String name = lineArray[1];
                 double price = Double.parseDouble(lineArray[2]);
-                if (lineArray[3].equalsIgnoreCase("beverage")) {
+                if (lineArray[3].equalsIgnoreCase("drink")) {
                     inventoryList.put(slotID, new Beverage(slotID, name, price));
                 } else if (lineArray[3].equalsIgnoreCase("candy")) {
                     inventoryList.put(slotID, new Candy(slotID, name, price));
-                } else if (lineArray[3].equalsIgnoreCase("chips")) {
+                } else if (lineArray[3].equalsIgnoreCase("chip")) {
                     inventoryList.put(slotID, new Chips(slotID, name, price));
                 } else if (lineArray[3].equalsIgnoreCase("gum")) {
                     inventoryList.put(slotID, new Gum(slotID, name, price));

@@ -21,12 +21,7 @@ public class UI {
             boolean validMainMenuResponse = false;
             while (!validMainMenuResponse) {
                 printMainMenu();
-                int mainResponse = 0;
-                try {
-                    mainResponse = Integer.parseInt(inputScanner.nextLine());
-                } catch (NumberFormatException e) {
-                    System.out.println("That's not a valid number.");
-                }
+                int mainResponse = validateNumberSelection(inputScanner.nextLine()); // returns 0 if invalid, else returns user input number
                 if (mainResponse == 1) {
                     // does not set valid to true; still needs to allow user to select purchase menu or exit
                     displayProducts();
@@ -44,21 +39,16 @@ public class UI {
 
             while (purchaseInProgress) {
                 printPurchaseMenu();
-                int purchaseResponse = 0;
-                try {
-                    purchaseResponse = Integer.parseInt(inputScanner.nextLine());
-                } catch (NumberFormatException e) {
-                    System.out.println("That's not a valid number.");
-                }
+                int purchaseResponse = validateNumberSelection(inputScanner.nextLine());
                 if (purchaseResponse == 1) {
                     System.out.println("Please enter a whole number of dollars:");
-                    try {
-                        int cash = Integer.parseInt(inputScanner.nextLine());
+                    int cash = validateNumberSelection(inputScanner.nextLine());
+                    if (cash == 0) {
+                        System.out.println("Transaction has failed.");
+                    } else {
                         vendingMachine.addMoney(cash);
                         System.out.println("Your new balance is " + vendingMachine.getCurrentBalance());
                         auditLog.feedMoneyLogEntry(cash, vendingMachine.getCurrentBalance());
-                    } catch (NumberFormatException e) {
-                        System.out.println("Sorry, that's not a valid whole number. Transaction has failed.");
                     }
                 } else if (purchaseResponse == 2) {
                     System.out.println("Please enter the slot ID of the product you want to purchase:");
@@ -95,6 +85,15 @@ public class UI {
             }
             System.out.println(infoString);
         }
+    }
+
+    private int validateNumberSelection (String userInput) {
+        try {
+            return Integer.parseInt(userInput);
+        } catch (NumberFormatException e) {
+            System.out.println("You have entered an invalid number.");
+        }
+        return 0;
     }
 
 }

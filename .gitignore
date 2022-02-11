@@ -1,3 +1,5 @@
+# Ignore Log
+Log.txt
 # ignore temporary file created by Learn
 preview-curriculum.zip
 autoconfig.yaml

@@ -17,7 +17,12 @@ public class UI {
             boolean validMainMenuResponse = false;
             while (!validMainMenuResponse) {
                 printMainMenu();
-                int mainResponse = Integer.parseInt(inputScanner.nextLine());
+                int mainResponse = 0;
+                try {
+                    mainResponse = Integer.parseInt(inputScanner.nextLine());
+                } catch (NumberFormatException e) {
+                    System.out.println("That's not a valid number.");
+                }
                 if (mainResponse == 1) {
                     // does not set valid to true; still needs to allow user to select purchase menu or exit
                     displayProducts();
@@ -25,7 +30,6 @@ public class UI {
                     validMainMenuResponse = true;
                     // exits loop and moves on to purchaseInProgress loop
                 } else if (mainResponse == 3) {
-                    // ANYTHING THAT NEEDS TO BE WRAPPED UP HERE? FLUSH LOGS ETC?
                     System.exit(0);
                 } else {
                     System.out.println("Please enter a valid option number.");
@@ -36,7 +40,12 @@ public class UI {
 
             while (purchaseInProgress) {
                 printPurchaseMenu();
-                int purchaseResponse = Integer.parseInt(inputScanner.nextLine());
+                int purchaseResponse = 0;
+                try {
+                    purchaseResponse = Integer.parseInt(inputScanner.nextLine());
+                } catch (NumberFormatException e) {
+                    System.out.println("That's not a valid number.");
+                }
                 if (purchaseResponse == 1) {
                     System.out.println("Please enter a whole number of dollars:");
                     try {

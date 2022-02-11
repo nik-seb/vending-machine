@@ -7,6 +7,10 @@ public class UI {
     private VendingMachine vendingMachine;
     private Scanner inputScanner = new Scanner(System.in);
 
+    AuditLog auditLog = new AuditLog();
+
+
+
     public UI (VendingMachine vendingMachine) {
         this.vendingMachine = vendingMachine;
         interaction();
@@ -52,6 +56,7 @@ public class UI {
                         int cash = Integer.parseInt(inputScanner.nextLine());
                         vendingMachine.addMoney(cash);
                         System.out.println("Your new balance is " + vendingMachine.getCurrentBalance());
+                        auditLog.feedMoneyLogEntry(cash, vendingMachine.getCurrentBalance());
                     } catch (NumberFormatException e) {
                         System.out.println("Sorry, that's not a valid whole number. Transaction has failed.");
                     }
@@ -60,7 +65,9 @@ public class UI {
                     displayProducts();
                     String productID = inputScanner.nextLine();
                     System.out.println(vendingMachine.dispenseProduct(productID));
+                    auditLog.dispenseProductLogEntry(vendingMachine.getProductList().get(productID), vendingMachine.getCurrentBalance());
                 } else if (purchaseResponse == 3) {
+                    auditLog.returnChangeLogEntry(vendingMachine.getCurrentBalance());
                     System.out.println(vendingMachine.returnChange());
                     purchaseInProgress = false;
                 } else {

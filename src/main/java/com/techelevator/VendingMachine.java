@@ -2,6 +2,7 @@ package com.techelevator;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.text.NumberFormat;
 import java.util.*;
 
 public class VendingMachine {
@@ -69,9 +70,9 @@ public class VendingMachine {
 
         int numberQuarters = (int)Math.floor(currentBalance / 0.25);
         int numberDimes = (int)Math.floor((currentBalance - (0.25 * numberQuarters)) / 0.10);
-        int numberNickels = (int)Math.floor((currentBalance - ((0.25 * numberQuarters) + (0.10 * numberDimes))) / 0.05);
+        int numberNickels = (int)Math.round((currentBalance - ((0.25 * numberQuarters) + (0.10 * numberDimes))) / 0.05);
 
-        String returnString = "Your change is: $" + currentBalance + ". You receive: " + numberQuarters + " quarter(s), " + numberDimes + " dime(s), and " + numberNickels + " nickel(s).";
+        String returnString = "Your change is: " + NumberFormat.getCurrencyInstance().format(currentBalance) + ". You receive: " + numberQuarters + " quarter(s), " + numberDimes + " dime(s), and " + numberNickels + " nickel(s).";
         currentBalance = 0;
         return returnString;
     }
@@ -86,7 +87,7 @@ public class VendingMachine {
             } else {
                 product.removeProduct();
                 subtractMoney(product.getPrice());
-                return "You have purchased " + product.getNameOfProduct() + " for $" + product.getPrice() + " and have $" + currentBalance + " remaining. \n" + product.getDispenseMessage();
+                return "You have purchased " + product.getNameOfProduct() + " for $" + product.getPrice() + " and have " + NumberFormat.getCurrencyInstance().format(currentBalance) + " remaining. \n" + product.getDispenseMessage();
                 // does not change purchaseInProgress boolean; returns to purchase menu
             }
         } else {

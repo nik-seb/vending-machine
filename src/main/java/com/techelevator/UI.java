@@ -56,7 +56,9 @@ public class UI {
                     displayProducts();
                     String productID = inputScanner.nextLine();
                     System.out.println(vendingMachine.dispenseProduct(productID));
-                    auditLog.dispenseProductLogEntry(vendingMachine.getProductList().get(productID), vendingMachine.getCurrentBalance());
+                    if (vendingMachine.getProductList().get(productID).getPrice() <= vendingMachine.getCurrentBalance()) {
+                        auditLog.dispenseProductLogEntry(vendingMachine.getProductList().get(productID), vendingMachine.getCurrentBalance());
+                    }
                 } else if (purchaseResponse == 3) {
                     auditLog.returnChangeLogEntry(vendingMachine.getCurrentBalance());
                     System.out.println(vendingMachine.returnChange());

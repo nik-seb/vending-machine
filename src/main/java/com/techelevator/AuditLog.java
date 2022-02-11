@@ -26,6 +26,8 @@ public class AuditLog {
             writer.println(">" + timeStamp + " " + product.getNameOfProduct() + " " + product.getSlotIdentifier() + " " + NumberFormat.getCurrencyInstance().format(updatedBalance + product.getPrice()) + " " + NumberFormat.getCurrencyInstance().format(updatedBalance));
         } catch (IOException e) {
             System.out.println("File not found.");
+        } catch (NullPointerException e) {
+            System.out.println("Error.");
         }
     }
 

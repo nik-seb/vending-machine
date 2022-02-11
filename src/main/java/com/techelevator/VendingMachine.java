@@ -14,6 +14,18 @@ public class VendingMachine {
         return currentBalance;
     }
 
+    // need to write into methods
+    public double addMoney (double amountToAdd) {
+        currentBalance = currentBalance + amountToAdd;
+        return currentBalance;
+    }
+
+    // need to write into methods
+    public double subtractMoney (double amountToSubtract) {
+        currentBalance = currentBalance - amountToSubtract;
+        return currentBalance;
+    }
+
     public VendingMachine () {
         this.productList = stockMachine();
     }

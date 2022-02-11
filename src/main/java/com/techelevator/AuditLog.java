@@ -40,8 +40,7 @@ public class AuditLog {
 
     private String getTimeStamp () {
         SimpleDateFormat date = new SimpleDateFormat("MM/dd/yyyy hh:mm:ss a");
-        String timeStamp = date.format(new Date());
-        return timeStamp;
+        return date.format(new Date());
     }
 
 }

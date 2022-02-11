@@ -65,32 +65,32 @@ public class VendingMachine {
         return productList;
     }
 
-    public void returnChange() {
+    public String returnChange() {
 
         int numberQuarters = (int)Math.floor(currentBalance / 0.25);
         int numberDimes = (int)Math.floor((currentBalance - (0.25 * numberQuarters)) / 0.10);
         int numberNickels = (int)Math.floor((currentBalance - ((0.25 * numberQuarters) + (0.10 * numberDimes))) / 0.05);
 
-        System.out.println("Your change is: $" + currentBalance + ". You receive: " + numberQuarters + " quarter(s), " + numberDimes + " dime(s), and " + numberNickels + " nickel(s).");
+        String returnString = "Your change is: $" + currentBalance + ". You receive: " + numberQuarters + " quarter(s), " + numberDimes + " dime(s), and " + numberNickels + " nickel(s).";
         currentBalance = 0;
+        return returnString;
     }
 
-    public void dispenseProduct (String productID) {
+    public String dispenseProduct (String productID) {
         if (productList.containsKey(productID)) {
             Product product = productList.get(productID);
             if (product.isSoldOut()) {
-                System.out.println("Sorry, that product is sold out.");
+                return "Sorry, that product is sold out.";
             } else if (product.getPrice() > currentBalance) {
-                System.out.println("Sorry, you have not put in enough money to purchase that product.");
+                return "Sorry, you have not put in enough money to purchase that product.";
+            } else {
+                product.removeProduct();
+                subtractMoney(product.getPrice());
+                return "You have purchased " + product.getNameOfProduct() + " for $" + product.getPrice() + " and have $" + currentBalance + " remaining. \n" + product.getDispenseMessage();
+                // does not change purchaseInProgress boolean; returns to purchase menu
             }
-            // PUT BELOW IN ELSE BLOCK ONCE BALANCE IS FUNCTIONING, SO IT ONLY EXECUTES IF ABOVE ARE FALSE
-            // UPDATE BALANCE HERE
-            product.removeProduct();
-            System.out.println("You have purchased " + product.getNameOfProduct() + " for $" + product.getPrice() + " and have $" + "BALANCE HERE" + " remaining.");
-            System.out.println(product.getDispenseMessage());
-            // does not change purchaseInProgress boolean; returns to purchase menu
         } else {
-            System.out.println("Sorry, that's not a valid slot ID.");
+            return "Sorry, that's not a valid slot ID.";
         }
     }
 

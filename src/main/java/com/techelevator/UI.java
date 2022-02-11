@@ -23,6 +23,7 @@ public class UI {
                     displayProducts();
                 } else if (mainResponse == 2) {
                     validMainMenuResponse = true;
+                    // exits loop and moves on to purchaseInProgress loop
                 } else if (mainResponse == 3) {
                     // ANYTHING THAT NEEDS TO BE WRAPPED UP HERE? FLUSH LOGS ETC?
                     System.exit(0);
@@ -48,9 +49,9 @@ public class UI {
                     System.out.println("Please enter the slot ID of the product you want to purchase:");
                     displayProducts();
                     String productID = inputScanner.nextLine();
-                    vendingMachine.dispenseProduct(productID);
+                    System.out.println(vendingMachine.dispenseProduct(productID));
                 } else if (purchaseResponse == 3) {
-                    vendingMachine.returnChange();
+                    System.out.println(vendingMachine.returnChange());
                     purchaseInProgress = false;
                 } else {
                     System.out.println("Please enter a valid option number.");

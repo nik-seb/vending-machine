@@ -69,6 +69,22 @@ public class VendingMachineTest {
     }
 
     @Test
+    public void dispenseProduct_returns_out_of_stock_message_given_sold_out () {
+
+        Map<String, Product> productList = new LinkedHashMap<>();
+        productList.put("A1", new Chips("A1", "Potato Crisps", 3.05));
+        vendingMachine.addMoney(20);
+        vendingMachine.dispenseProduct("A1");
+        vendingMachine.dispenseProduct("A1");
+        vendingMachine.dispenseProduct("A1");
+        vendingMachine.dispenseProduct("A1");
+        vendingMachine.dispenseProduct("A1");
+        String output = vendingMachine.dispenseProduct("A1");
+        Assert.assertEquals("Sorry, that product is sold out.", output);
+
+    }
+    
+    @Test
     public void dispenseProduct_decrements_balance () {
         vendingMachine.addMoney(5);
         vendingMachine.dispenseProduct("C2"); // cost is 1.50

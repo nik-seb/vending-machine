@@ -27,7 +27,7 @@ public class AuditLog {
         } catch (IOException e) {
             System.out.println("File not found.");
         } catch (NullPointerException e) {
-            System.out.println("Error.");
+            System.out.println("Try again.");
         }
     }
 

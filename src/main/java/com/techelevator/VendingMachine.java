@@ -47,13 +47,21 @@ public class VendingMachine {
                 String name = lineArray[1];
                 double price = Double.parseDouble(lineArray[2]);
                 if (lineArray[3].equalsIgnoreCase("drink")) {
-                    inventoryList.put(slotID, new Beverage(slotID, name, price));
+                    Beverage beverage = new Beverage(slotID, name, price);
+                    inventoryList.put(slotID, beverage);
+                    itemsAndQuantities.put(beverage, 0);
                 } else if (lineArray[3].equalsIgnoreCase("candy")) {
-                    inventoryList.put(slotID, new Candy(slotID, name, price));
+                    Candy candy = new Candy(slotID, name, price);
+                    inventoryList.put(slotID, candy);
+                    itemsAndQuantities.put(candy, 0);
                 } else if (lineArray[3].equalsIgnoreCase("chip")) {
-                    inventoryList.put(slotID, new Chips(slotID, name, price));
+                    Chips chips = new Chips(slotID, name, price);
+                    inventoryList.put(slotID, chips);
+                    itemsAndQuantities.put(chips, 0);
                 } else if (lineArray[3].equalsIgnoreCase("gum")) {
-                    inventoryList.put(slotID, new Gum(slotID, name, price));
+                    Gum gum = new Gum(slotID, name, price);
+                    inventoryList.put(slotID, gum);
+                    itemsAndQuantities.put(gum, 0);
                 }
             }
         } catch (FileNotFoundException e) {
@@ -95,8 +103,6 @@ public class VendingMachine {
 
                 if (itemsAndQuantities.containsKey(product)) {
                    itemsAndQuantities.put(product, itemsAndQuantities.get(product) + 1);
-                } else {
-                    itemsAndQuantities.put(product, 1);
                 }
 
                 return "You have purchased " + product.getNameOfProduct() + " for " + NumberFormat.getCurrencyInstance().format(product.getPrice()) + " and have " + NumberFormat.getCurrencyInstance().format(currentBalance) + " remaining. \n" + product.getDispenseMessage();

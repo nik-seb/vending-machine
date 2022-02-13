@@ -65,10 +65,15 @@ public class UI {
                         System.out.println("Please enter the slot ID of the product you want to purchase:");
                         displayProducts();
                         String productID = inputScanner.nextLine().toUpperCase();
-                        System.out.println(vendingMachine.dispenseProduct(productID));
-                        if (vendingMachine.getProductList().get(productID).getPrice() <= vendingMachine.getCurrentBalance()) {
-                            auditLog.dispenseProductLogEntry(vendingMachine.getProductList().get(productID), vendingMachine.getCurrentBalance());
+                        try {
+                            System.out.println(vendingMachine.dispenseProduct(productID));
+                            if (vendingMachine.getProductList().get(productID).getPrice() <= vendingMachine.getCurrentBalance()) {
+                                auditLog.dispenseProductLogEntry(vendingMachine.getProductList().get(productID), vendingMachine.getCurrentBalance());
+                            }
+                        } catch (NullPointerException e) {
+                            System.out.println("Please enter a valid slot ID.");
                         }
+
                         break;
                     case "3": // Finish Transaction
                         auditLog.returnChangeLogEntry(vendingMachine.getCurrentBalance());

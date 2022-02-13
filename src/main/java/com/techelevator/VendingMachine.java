@@ -9,6 +9,7 @@ public class VendingMachine {
 
     private Map<String, Product> productList;
     private double currentBalance;
+    private Map<Product, Integer> itemsAndQuantities = new HashMap<>();
 
 
     public double getCurrentBalance() {
@@ -66,6 +67,10 @@ public class VendingMachine {
         return productList;
     }
 
+    public Map<Product, Integer> getItemsAndQuantities () {
+        return itemsAndQuantities; // should return new object, and find occurrences elsewhere too
+    }
+
     public String returnChange() {
 
         int numberQuarters = (int)Math.floor(currentBalance / 0.25);
@@ -87,6 +92,13 @@ public class VendingMachine {
             } else {
                 product.removeProduct();
                 subtractMoney(product.getPrice());
+
+                if (itemsAndQuantities.containsKey(product)) {
+                   itemsAndQuantities.put(product, itemsAndQuantities.get(product) + 1);
+                } else {
+                    itemsAndQuantities.put(product, 1);
+                }
+
                 return "You have purchased " + product.getNameOfProduct() + " for " + NumberFormat.getCurrencyInstance().format(product.getPrice()) + " and have " + NumberFormat.getCurrencyInstance().format(currentBalance) + " remaining. \n" + product.getDispenseMessage();
                 // does not change purchaseInProgress boolean; returns to purchase menu
             }

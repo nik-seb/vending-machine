@@ -31,6 +31,9 @@ public class UI {
                     // exits loop and moves on to purchaseInProgress loop
                 } else if (mainResponse == 3) {
                     System.exit(0);
+                } else if (mainResponse == 4) {
+                    SalesReport salesReport = new SalesReport(vendingMachine.getItemsAndQuantities());
+                    salesReport.printSalesReport();
                 } else {
                     System.out.println("Please enter a valid option number.");
                 }

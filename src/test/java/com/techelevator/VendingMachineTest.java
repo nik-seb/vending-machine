@@ -83,7 +83,7 @@ public class VendingMachineTest {
         Assert.assertEquals("Sorry, that product is sold out.", output);
 
     }
-    
+
     @Test
     public void dispenseProduct_decrements_balance () {
         vendingMachine.addMoney(5);

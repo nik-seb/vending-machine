@@ -3,6 +3,8 @@ package com.techelevator;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -15,7 +17,7 @@ public class SalesReport {
     }
 
     public void printSalesReport () {
-        try(PrintWriter writer = new PrintWriter("salesReport.txt")) {
+        try(PrintWriter writer = new PrintWriter("salesReport_" + getTimeStamp() + ".txt")) {
 
             double grossSales = 0;
             for (Product product : itemsAndQuantities.keySet()) {
@@ -27,6 +29,11 @@ public class SalesReport {
         } catch (FileNotFoundException e) {
             System.out.println("File not found. " + e.getMessage());
         }
+    }
+
+    private String getTimeStamp () {
+        SimpleDateFormat date = new SimpleDateFormat("MM-dd-yyyy_hh-mm-ss_a");
+        return date.format(new Date());
     }
 
     public Map<Product, Integer> getItemsAndQuantities() {

@@ -16,13 +16,11 @@ public class VendingMachine {
         return currentBalance;
     }
 
-    // need to write into methods
     public double addMoney (double amountToAdd) {
         currentBalance = currentBalance + amountToAdd;
         return currentBalance;
     }
 
-    // need to write into methods
     public double subtractMoney (double amountToSubtract) {
         currentBalance = currentBalance - amountToSubtract;
         return currentBalance;
@@ -72,11 +70,11 @@ public class VendingMachine {
     }
 
     public Map<String, Product> getProductList () {
-        return productList;
+        return new LinkedHashMap<>(productList);
     }
 
     public Map<Product, Integer> getItemsAndQuantities () {
-        return itemsAndQuantities; // should return new object, and find occurrences elsewhere too
+        return new HashMap<>(itemsAndQuantities);
     }
 
     public String returnChange() {

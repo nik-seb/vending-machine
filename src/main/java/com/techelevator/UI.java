@@ -22,20 +22,25 @@ public class UI {
             boolean validMainMenuResponse = false;
             while (!validMainMenuResponse) {
                 printMainMenu();
-                int mainResponse = validateNumberSelection(inputScanner.nextLine()); // returns 0 if invalid, else returns user input number
-                if (mainResponse == 1) {
-                    // does not set valid to true; still needs to allow user to select purchase menu or exit
-                    displayProducts();
-                } else if (mainResponse == 2) {
-                    validMainMenuResponse = true;
-                    // exits loop and moves on to purchaseInProgress loop
-                } else if (mainResponse == 3) {
-                    System.exit(0);
-                } else if (mainResponse == 4) {
-                    SalesReport salesReport = new SalesReport(vendingMachine.getItemsAndQuantities());
-                    salesReport.printSalesReport();
-                } else {
-                    System.out.println("Please enter a valid option number.");
+                String mainResponse = inputScanner.nextLine();
+                switch (mainResponse) {
+                    case "1": // Display Vending Machine Items
+                        // does not set valid to true; still needs to allow user to select purchase menu or exit
+                        displayProducts();
+                        break;
+                    case "2": // Purchase
+                        validMainMenuResponse = true;
+                        // exits loop and moves on to purchaseInProgress loop
+                        break;
+                    case "3": // Exit
+                        System.exit(0);
+                    case "4": // Hidden option to generate sales report
+                        SalesReport salesReport = new SalesReport(vendingMachine.getItemsAndQuantities());
+                        salesReport.printSalesReport();
+                        break;
+                    default:
+                        System.out.println("Please enter a valid option number.");
+                        break;
                 }
             }
 
@@ -43,31 +48,37 @@ public class UI {
 
             while (purchaseInProgress) {
                 printPurchaseMenu();
-                int purchaseResponse = validateNumberSelection(inputScanner.nextLine());
-                if (purchaseResponse == 1) {
-                    System.out.println("Please enter a whole number of dollars:");
-                    int cash = validateNumberSelection(inputScanner.nextLine());
-                    if (cash == 0) {
-                        System.out.println("Transaction has failed.");
-                    } else {
-                        vendingMachine.addMoney(cash);
-                        System.out.println("Your new balance is " + NumberFormat.getCurrencyInstance().format(vendingMachine.getCurrentBalance()));
-                        auditLog.feedMoneyLogEntry(cash, vendingMachine.getCurrentBalance());
-                    }
-                } else if (purchaseResponse == 2) {
-                    System.out.println("Please enter the slot ID of the product you want to purchase:");
-                    displayProducts();
-                    String productID = inputScanner.nextLine();
-                    System.out.println(vendingMachine.dispenseProduct(productID));
-                    if (vendingMachine.getProductList().get(productID).getPrice() <= vendingMachine.getCurrentBalance()) {
-                        auditLog.dispenseProductLogEntry(vendingMachine.getProductList().get(productID), vendingMachine.getCurrentBalance());
-                    }
-                } else if (purchaseResponse == 3) {
-                    auditLog.returnChangeLogEntry(vendingMachine.getCurrentBalance());
-                    System.out.println(vendingMachine.returnChange());
-                    purchaseInProgress = false;
-                } else {
-                    System.out.println("Please enter a valid option number.");
+                String purchaseResponse = inputScanner.nextLine();
+                switch (purchaseResponse) {
+                    case "1": // Feed Money
+                        System.out.println("Please enter a whole number of dollars:");
+                        int cash = validateNumberSelection(inputScanner.nextLine());
+                        if (cash == 0) {
+                            System.out.println("Transaction has failed.");
+                        } else {
+                            vendingMachine.addMoney(cash);
+                            System.out.println("Your new balance is " + NumberFormat.getCurrencyInstance().format(vendingMachine.getCurrentBalance()));
+                            auditLog.feedMoneyLogEntry(cash, vendingMachine.getCurrentBalance());
+                        }
+                        break;
+                    case "2": // Select Product
+                        System.out.println("Please enter the slot ID of the product you want to purchase:");
+                        displayProducts();
+                        String productID = inputScanner.nextLine().toUpperCase();
+                        System.out.println(vendingMachine.dispenseProduct(productID));
+                        if (vendingMachine.getProductList().get(productID).getPrice() <= vendingMachine.getCurrentBalance()) {
+                            auditLog.dispenseProductLogEntry(vendingMachine.getProductList().get(productID), vendingMachine.getCurrentBalance());
+                        }
+                        break;
+                    case "3": // Finish Transaction
+                        auditLog.returnChangeLogEntry(vendingMachine.getCurrentBalance());
+                        System.out.println(vendingMachine.returnChange());
+                        purchaseInProgress = false;
+                        // exits purchase loop and returns to main menu
+                        break;
+                    default:
+                        System.out.println("Please enter a valid option number.");
+                        break;
                 }
             }
         }

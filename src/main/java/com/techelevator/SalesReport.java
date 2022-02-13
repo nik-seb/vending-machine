@@ -26,6 +26,8 @@ public class SalesReport {
             }
             writer.println("\n$"+ grossSales);
 
+            System.out.println("A sales report has been generated.");
+
         } catch (FileNotFoundException e) {
             System.out.println("File not found. " + e.getMessage());
         }
@@ -35,14 +37,5 @@ public class SalesReport {
         SimpleDateFormat date = new SimpleDateFormat("MM-dd-yyyy_hh-mm-ss_a");
         return date.format(new Date());
     }
-
-    public Map<Product, Integer> getItemsAndQuantities() {
-        return itemsAndQuantities;
-    }
-
-    public void setItemsAndQuantities(Map<Product, Integer> itemsAndQuantities) {
-        this.itemsAndQuantities = itemsAndQuantities;
-    }
-
 
 }
